@@ -1,5 +1,5 @@
-/*The crash(crashell) September 1 2023 - 6:06 IST
-	Life Cycle of a Shell : Intitalize,Interpret,Terminate*/
+/*The craSh(craShell) September 1 2023 - 6:06 IST
+	Life Cycle of a Shell : Intitalize(read_line),Interpret(parse & execute),Terminate*/
 /***Pre-processor Section***/
 #include<stdio.h>
 #include<stdlib.h>
@@ -33,7 +33,7 @@ void main_loop(){
 	
 	do{
 		char cwd[PATH_MAX]; 
-		printf("\n%s !:",getcwd(cwd,sizeof(cwd)));
+		printf("\n%s !: ",getcwd(cwd,sizeof(cwd)));
 		
 		line = read_line();
 		args = parse_line(line);
@@ -142,6 +142,7 @@ int launch_pipe(char **args,int pipe_loc,int argc){
 		for(int i = 0; i < pipe_loc; i++){	//args for output child
 			arr_out[i] = args[i];
 		}
+		arr_out[pipe_loc] = NULL;
 		
 		dup2(fd[1],STDOUT_FILENO);	//duplicating to standard output - 0
 		close(fd[0]);	
@@ -165,17 +166,16 @@ int launch_pipe(char **args,int pipe_loc,int argc){
 			}
 		}
 		arr_in[j] = NULL;
-		
+				
 		dup2(fd[0],STDIN_FILENO); 	//duplicating to standard input - 0
 		close(fd[0]);
-		close(fd[1]);
+		close(fd[1]); 
 		
-		execvp(arr_in[0],arr_in);
-		/*if(execvp(arr_in[0],arr_in) == -1){
+		if(execvp(arr_in[0],arr_in) == -1){
 			perror("error pipe in");
-		}else{
-			fflush(stdout);
-		}*/
+			exit(EXIT_FAILURE);
+		}
+		printf("\n");
 	}
 	
 	close(fd[0]);
@@ -186,8 +186,8 @@ int launch_pipe(char **args,int pipe_loc,int argc){
 		wpid_2 = waitpid(child_in,&status_2,WUNTRACED);
 	}while(!WIFEXITED(status_1) && WIFSIGNALED(status_1) && !WIFEXITED(status_2) && WIFSIGNALED(status_2));
 	
-	free(arr_in);
 	free(arr_out);
+	free(arr_in);
 	
 	return 1;
 }
