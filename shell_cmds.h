@@ -33,9 +33,9 @@ int crash_cd(char **args){
 }
 
 int crash_help(){
-	printf("\tGowtham Manohar's craSh\n");
-	printf("Enter Program Name,Arguments & hit Enter");
-	printf("The following shell commands are built-in");
+	printf("\tGowtham Manohar's craSh");
+	printf("\nEnter Program Name,Arguments & hit Enter");
+	printf("\nThe following shell commands are built-in\n");
 	
 	for(int i =0;i<(int)shell_cmds_s();i++){
 		printf("\t%d.%s\n",i+1,shell_cmds[i]);
