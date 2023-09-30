@@ -1,6 +1,13 @@
-/*The craSh(craShell) September 1 2023 - 6:06 IST
-	Life Cycle of a Shell : Intitalize(read_line),Interpret(parse & execute),Terminate*/
-/***Pre-processor Section***/
+/*
+ * The craSh(craShell) September 1 2023 - 6:06 IST
+ *	Life Cycle of a Shell : Intitalize(read_line),Interpret(parse & execute),Terminate
+ */
+
+/**
+  * 
+  * Pre-processor Section
+  *
+  * /
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
@@ -10,13 +17,21 @@
 #include<stdbool.h>	
 #include "shell_cmds.h"
 
-/***Macro Definitions***/
+/*
+ *
+ * *Macro Definitions*
+ * 
+ */
 #define RL_BUFF_S 1024
 #define TOK_BUFF_S 1024
 #define PIPE_BUFF_S 1024
 #define TOK_DELIM "\n\r\t\a "
 /**************************************************************************************************************************************/
-/***Operation Sections***/
+/**
+  * 
+  * *Operation Sections*
+  *
+  */
 /***Function Declarations for Operations***/
 void main_loop();
 char *read_line();
